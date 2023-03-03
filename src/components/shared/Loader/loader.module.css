@@ -1,6 +1,8 @@
-.loader {
-  position: fixed;
-  top: 10px;
-  right: 35%;
+.MagnifyingGlass-wrapper {
+  /* position: fixed; */
+  /* top: 10px;
+  right: 35%; */
+  margin-right: auto;
+  margin-left: auto;
   z-index: 10000;
 }
