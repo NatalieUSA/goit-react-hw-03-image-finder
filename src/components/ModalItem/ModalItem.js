@@ -1,10 +1,6 @@
-// import styles from './modal-item.module.css';
+import propTypes from 'prop-types';
 
 export const ModalItem = ({ largeImageURL, tags }) => {
-  //   console.log(items.largeImageURL);
-  //   const { largeImageURL } = items;
-  //   const { tags } = items;
-
   return (
     <div>
       <img src={largeImageURL} alt={tags} />
@@ -12,7 +8,7 @@ export const ModalItem = ({ largeImageURL, tags }) => {
   );
 };
 
-// ModalItem.defaultProps = {
-//   items: [],
-// };
-// ModalItem();
+ModalItem.propTypes = {
+  largeImageURL: propTypes.string.isRequired,
+  tags: propTypes.string,
+};

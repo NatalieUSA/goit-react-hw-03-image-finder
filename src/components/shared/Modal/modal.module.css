@@ -1,24 +1,33 @@
+
 .overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: hsla(0, 0%, 6%, 0.9);
-  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1200;
 }
 
 .modal {
+  max-width: calc(100vw - 200px);
+  max-height: calc(100vh - 100px);
+  position: absolute;
+}
+/* .modal {
   padding: 20px;
   border-radius: 20px;
-  /* background-color: #fff; */
+
   min-height: 50%;
   min-width: 70%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
+} */
 
 .close {
   color: deeppink;
@@ -28,12 +37,7 @@
   top: 10px;
   right: 10px;
   cursor: pointer;
-  /* background-color: grey; */
+
   padding: 3px 10px;
   border-radius: 50px;
-}
-img {
-  object-fit: cover;
-
-  /* width: 100%; */
 }

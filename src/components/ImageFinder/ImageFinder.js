@@ -1,8 +1,5 @@
 import { Component } from 'react';
-import axios from 'axios';
-import { SearchImages } from 'components/shared/servises/image-api';
-// import styles from './image-finder.css';
-import styles from '../styles/styles.module.css';
+
 import { Loader } from 'components/shared/Loader/Loader';
 
 import { Searchbar } from 'components/Searchbar/Searchbar';
@@ -10,11 +7,15 @@ import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Modal } from 'components/shared/Modal/Modal';
 import { ModalItem } from 'components/ModalItem/ModalItem';
+import { Button } from 'components/shared/Button/Button';
+import { ErrorMessage } from 'components/shared/ErrorMessage/ErrorMessage';
+
+import { searchPhotos } from 'components/shared/servises/image-api';
 
 export class ImageFinder extends Component {
   state = {
     search: '',
-    items: [],
+    images: [],
     loading: false,
     error: null,
     page: 1,
@@ -23,43 +24,21 @@ export class ImageFinder extends Component {
     modalItem: null,
   };
 
-  //   componentDidUpdate(prevProps, prevState) {
-  //     const { search, page } = this.state;
-  //     if (prevState.search !== search || prevState.page !== page) {
-  //       this.setState({ loading: true });
-  //       axios
-  //         .get(
-  //           `https://pixabay.com/api/?key=32856813-557b11f28047fc34e33f2f2e2&q=${search}&per_page=3&webformatURL&largeImageURL&page=${page}`
-  //         )
-
-  //         .then(({ data }) => {
-  //           const images = data.hits;
-  //           this.setState(({ items }) => ({ items: [...items, ...images] }));
-  //         })
-  //         .catch(error => {
-  //           this.setState({ error: error.message });
-  //           console.log(error.message);
-  //         })
-  //         .finally(() => this.setState({ loading: false }));
-  //     }
-  //   }
   componentDidUpdate(prevProps, prevState) {
     const { search, page } = this.state;
     if (prevState.search !== search || prevState.page !== page) {
-      this.fetchPosts();
+      this.fetchPhotos();
     }
   }
 
-  async fetchPosts() {
+  async fetchPhotos() {
     try {
       this.setState({ loading: true });
       const { search, page } = this.state;
-      const response = await axios.get(
-        `https://pixabay.com/api/?key=32856813-557b11f28047fc34e33f2f2e2&q=${search}&per_page=3&webformatURL&largeImageURL&page=${page}`
-      );
-      const data = response.data.hits;
+      const data = await searchPhotos(search, page);
+
       console.log(data);
-      this.setState(({ items }) => ({ items: [...items, ...data] }));
+      this.setState(({ images }) => ({ images: [...images, ...data] }));
     } catch (error) {
       this.setState({ error: error.message });
     } finally {
@@ -67,8 +46,32 @@ export class ImageFinder extends Component {
     }
   }
 
+  //   componentDidUpdate(prevProps, prevState) {
+  //     const { search, page } = this.state;
+  //     if (prevState.search !== search || prevState.page !== page) {
+  //       this.fetchPosts();
+  //     }
+  //   }
+
+  //   async fetchPosts() {
+  //     try {
+  //       this.setState({ loading: true });
+  //       const { search, page } = this.state;
+  //       const response = await axios.get(
+  //         `https://pixabay.com/api/?key=32856813-557b11f28047fc34e33f2f2e2&q=${search}&orientation=horizontal&per_page=12&webformatURL&largeImageURL&page=${page}`
+  //       );
+  //       const data = response.data.hits;
+  //       console.log(data);
+  //       this.setState(({ images }) => ({ images: [...images, ...data] }));
+  //     } catch (error) {
+  //       this.setState({ error: error.message });
+  //     } finally {
+  //       this.setState({ loading: false });
+  //     }
+  //   }
+
   searchImages = ({ search }) => {
-    this.setState({ search, items: [], page: 1 });
+    this.setState({ search, images: [], page: 1 });
   };
 
   loadMore = () => {
@@ -92,49 +95,39 @@ export class ImageFinder extends Component {
   };
 
   render() {
-    const { items, loading, error, search, showModal, modalItem } = this.state;
-    // const { largeImageURL } = items;
+    const { images, loading, error, search, showModal, modalItem } = this.state;
     const { searchImages, loadMore, showImage, closeModal } = this;
 
     return (
       <>
-        {/* <Modal close={closeModal}>
-          <ModalItem {...modalItem} items={largeImageURL} />
-        </Modal> */}
         <Searchbar onSubmit={searchImages} />
 
         <ImageGallery>
-          <ImageGalleryItem showImage={showImage} items={items} />
+          <ImageGalleryItem showImage={showImage} images={images} />
         </ImageGallery>
 
-        {/* {loading && <p>...Loadeeer</p>} */}
-
-        {/* <ul className={styles.gallery}>{elements}</ul> */}
-        {Boolean(items.length) && (
-          <button type="submit" className={styles.button} onClick={loadMore}>
-            Load more
-          </button>
-        )}
+        {Boolean(images.length) && <Button loadMore={loadMore} />}
+        {/* {images.length > 0 || images.length !== 1 ? (
+          <Button loadMore={loadMore} />
+        ) : null} */}
         {loading && <Loader />}
         {error && (
-          <p>
+          <ErrorMessage>
             ...Error ... somethig went wrong. Request failed with status code
             404
-          </p>
+          </ErrorMessage>
         )}
-        {!items.length && search && <p>empty results. Try one more search</p>}
+        {!images.length && search && (
+          <ErrorMessage>
+            Sorry, there are no images matching your search query. Please try
+            again.
+          </ErrorMessage>
+        )}
         {showModal && (
           <Modal close={closeModal}>
             <ModalItem {...modalItem} />
           </Modal>
         )}
-        {/* <p>...Loadeeer</p> */}
-        {/* {loading && <p>...Load posts</p>} */}
-        {/* <div className={styles.overlay}>
-          <div className={styles.modal}>
-            <img src="" alt="" />
-          </div>
-        </div> */}
       </>
     );
   }
