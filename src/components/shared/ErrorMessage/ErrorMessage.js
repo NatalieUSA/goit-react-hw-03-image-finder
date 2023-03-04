@@ -1,8 +1,8 @@
 import propTypes from 'prop-types';
-import style from './error-message.module.css';
+import { Message } from './ErrorMessage.styled';
 
 export const ErrorMessage = ({ children }) => {
-  return <h2 className={style.message}>{children}</h2>;
+  return <Message>{children}</Message>;
 };
 
 ErrorMessage.propTypes = {

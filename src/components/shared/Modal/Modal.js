@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { createPortal } from 'react-dom';
 
-import styles from './modal.module.css';
+import { Close, Overlay, ModalItem } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
@@ -26,14 +26,12 @@ export class Modal extends Component {
     const { closeModal } = this;
 
     return createPortal(
-      <div className={styles.overlay} onClick={closeModal}>
-        <div className={styles.modal}>
-          <span onClick={close} className={styles.close}>
-            X
-          </span>
+      <Overlay onClick={closeModal}>
+        <ModalItem>
+          <Close onClick={close}>X</Close>
           {children}
-        </div>
-      </div>,
+        </ModalItem>
+      </Overlay>,
       modalRoot
     );
   }

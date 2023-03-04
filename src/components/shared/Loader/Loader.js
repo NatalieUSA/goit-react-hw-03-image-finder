@@ -1,5 +1,5 @@
 // import { Dna } from 'react-loader-spinner';
-import styles from './loader.module.css';
+
 import { MagnifyingGlass } from 'react-loader-spinner';
 
 export const Loader = () => {

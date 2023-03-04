@@ -1,12 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import styles from './button.module.css';
+import { Btn } from './Button.styled';
 
 export const Button = ({ loadMore }) => {
   return (
-    <button type="button" className={styles.button} onClick={loadMore}>
+    <Btn type="button" onClick={loadMore}>
       More
-    </button>
+    </Btn>
   );
 };
 

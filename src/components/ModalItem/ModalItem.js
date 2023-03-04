@@ -1,9 +1,10 @@
 import propTypes from 'prop-types';
+import { Img } from './ModalItem.styled';
 
 export const ModalItem = ({ largeImageURL, tags }) => {
   return (
     <div>
-      <img src={largeImageURL} alt={tags} />
+      <Img src={largeImageURL} alt={tags} />
     </div>
   );
 };

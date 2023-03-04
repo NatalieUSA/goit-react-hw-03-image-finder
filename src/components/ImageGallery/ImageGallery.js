@@ -1,8 +1,8 @@
 import propTypes from 'prop-types';
-import styles from './image-gallery.module.css';
+import { Gallery } from './ImageGallery.styled.js';
 
 export const ImageGallery = ({ children }) => {
-  return <ul className={styles.gallery}>{children}</ul>;
+  return <Gallery>{children}</Gallery>;
 };
 
 ImageGallery.propTypes = {

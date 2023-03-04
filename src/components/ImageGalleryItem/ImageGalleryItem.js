@@ -1,17 +1,15 @@
 import propTypes from 'prop-types';
-
-import styles from './image-gallery-item.module.css';
+import { GalleryImage, GalleryItem } from './iImageGalleryItem.styled';
 
 export const ImageGalleryItem = ({ images, showImage }) => {
   const elements = images.map(({ id, webformatURL, largeImageURL, tags }) => (
-    <li key={id} className={styles.galleryitem}>
-      <img
-        className={styles.galleryimage}
+    <GalleryItem>
+      <GalleryImage
         src={webformatURL}
         alt={tags}
         onClick={() => showImage({ largeImageURL })}
       />
-    </li>
+    </GalleryItem>
   ));
   return elements;
 };

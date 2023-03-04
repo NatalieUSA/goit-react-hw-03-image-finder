@@ -95,7 +95,7 @@ export class ImageFinder extends Component {
   };
 
   render() {
-    const { images, loading, error, search, showModal, modalItem } = this.state;
+    const { images, loading, error, showModal, modalItem } = this.state;
     const { searchImages, loadMore, showImage, closeModal } = this;
 
     return (
@@ -117,12 +117,12 @@ export class ImageFinder extends Component {
             404
           </ErrorMessage>
         )}
-        {!images.length && search && (
+        {/* {!images.length && search && (
           <ErrorMessage>
             Sorry, there are no images matching your search query. Please try
             again.
           </ErrorMessage>
-        )}
+        )} */}
         {showModal && (
           <Modal close={closeModal}>
             <ModalItem {...modalItem} />
