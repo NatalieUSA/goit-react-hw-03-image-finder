@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { toast } from 'react-toastify';
 
 import { Loader } from 'components/shared/Loader/Loader';
 
@@ -42,7 +43,7 @@ export class ImageFinder extends Component {
       }));
 
       if (!data.total) {
-        alert('No results were found for your search!');
+        toast.error('No results were found for your search!');
       }
 
       this.setState({
@@ -50,6 +51,7 @@ export class ImageFinder extends Component {
       });
     } catch (error) {
       this.setState({ error: error.message });
+      toast.error(`Whoops, something went wrong ${error.message}`);
     } finally {
       this.setState({ loading: false });
     }

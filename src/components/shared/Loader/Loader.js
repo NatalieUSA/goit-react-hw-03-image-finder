@@ -16,8 +16,8 @@ export const Loader = () => {
         display: 'flex',
       }}
       wrapperClass="MagnifyingGlass-wrapper"
-      glassColor="#c0efff"
-      color="#e15b64"
+      glassColor="black"
+      color="deeppink"
     />
   );
   // <Dna
