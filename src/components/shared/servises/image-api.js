@@ -2,16 +2,28 @@ import axios from 'axios';
 
 export const searchPhotos = async (search, page = 1) => {
   try {
-    const {
-      data: { hits },
-    } = await axios.get(
+    const { data } = await axios.get(
       `https://pixabay.com/api/?key=32856813-557b11f28047fc34e33f2f2e2&q=${search}&orientation=horizontal&per_page=12&webformatURL&largeImageURL&page=${page}`
     );
-    return hits;
+    return data;
   } catch (error) {
     return error.message;
   }
 };
+// export const searchPhotos = async (search, page = 1) => {
+//   try {
+//     const {
+//       data: { hits },
+//     } = await axios.get(
+//       `https://pixabay.com/api/?key=32856813-557b11f28047fc34e33f2f2e2&q=${search}&orientation=horizontal&per_page=12&webformatURL&largeImageURL&page=${page}`
+//     );
+//     return hits;
+//   } catch (error) {
+//     return error.message;
+//   }
+// };
+
+///////////////////////////////////
 
 // export default async function searchPhotos(search, page = 1) {
 //   try {

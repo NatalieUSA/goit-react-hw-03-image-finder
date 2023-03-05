@@ -3,7 +3,7 @@ import { GalleryImage, GalleryItem } from './iImageGalleryItem.styled';
 
 export const ImageGalleryItem = ({ images, showImage }) => {
   const elements = images.map(({ id, webformatURL, largeImageURL, tags }) => (
-    <GalleryItem>
+    <GalleryItem key={id}>
       <GalleryImage
         src={webformatURL}
         alt={tags}
